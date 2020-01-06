@@ -6,3 +6,4 @@
     ```
    docker run --name mysql -e MYSQL_ROOT_PASSWORD=password -d mysql:5.7.28 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
    ```
+3. database 생성 : tc-jpa-study
