@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class JpaStudyApplication : ApplicationRunner {
+class TcJpaStudyApplication : ApplicationRunner {
 
     override fun run(args: ApplicationArguments?) {
 
@@ -14,5 +14,5 @@ class JpaStudyApplication : ApplicationRunner {
 }
 
 fun main(args: Array<String>) {
-    runApplication<JpaStudyApplication>(*args)
+    runApplication<TcJpaStudyApplication>(*args)
 }
