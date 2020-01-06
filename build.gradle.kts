@@ -1,10 +1,12 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     id("org.springframework.boot") version "2.2.2.RELEASE"
 
     kotlin("jvm") version "1.3.61"
+    // https://kotlinlang.org/docs/reference/compiler-plugins.html#spring-support
+    // kotlin("plugin.allopen") version "1.3.61"
     kotlin("plugin.spring") version "1.3.61"
+    // https://kotlinlang.org/docs/reference/compiler-plugins.html#spring-support
+    // kotlin("plugin.noarg") version "1.3.61"
     kotlin("plugin.jpa") version "1.3.61"
 }
 
@@ -12,7 +14,7 @@ apply {
     plugin("io.spring.dependency-management")
 }
 
-group = "com.baegoon"
+group = "com.tc"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 

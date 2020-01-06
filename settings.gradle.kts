@@ -1,1 +1,1 @@
-rootProject.name = "jpa-study"
+rootProject.name = "tc-jpa-study"
