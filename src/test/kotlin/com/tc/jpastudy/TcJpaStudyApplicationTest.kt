@@ -1,9 +1,11 @@
 package com.tc.jpastudy
 
 import com.tc.jpastudy.domain.Zone
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.test.context.TestConstructor
 import java.time.LocalTime
@@ -12,6 +14,7 @@ import javax.persistence.EntityManagerFactory
 @ExtendWith
 @DataJpaTest
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 internal class TcJpaStudyApplicationTest(
     private val emf: EntityManagerFactory
 ) {
@@ -22,9 +25,9 @@ internal class TcJpaStudyApplicationTest(
         val em = emf.createEntityManager()
         val tx = em.transaction
 
-        tx.begin()
-
         try {
+            tx.begin()
+
             val zone = Zone(
                 name = "쏘카존",
                 address = "서울시 성동구",
@@ -32,9 +35,9 @@ internal class TcJpaStudyApplicationTest(
                 closeTime = LocalTime.of(22, 0, 0)
             )
 
+            println("=============================")
             em.persist(zone)
-
-            println("Zone Id : ${zone.id}")
+            println("=============================")
 
             tx.commit()
         } catch (e: Exception) {
@@ -43,6 +46,24 @@ internal class TcJpaStudyApplicationTest(
         } finally {
             em.close()
         }
+
+        // tx.begin()
+        //
+        // val zone = Zone(
+        //     name = "쏘카존",
+        //     address = "서울시 성동구",
+        //     openTime = LocalTime.of(9, 0, 0),
+        //     closeTime = LocalTime.of(22, 0, 0)
+        // )
+        //
+        // println("=============================")
+        // em.persist(zone)
+        // println("=============================")
+        //
+        // tx.commit()
+        // em.close()
+        //
+        // assertThat(zone.id).isNotNull()
     }
 
     @Test
@@ -53,17 +74,112 @@ internal class TcJpaStudyApplicationTest(
 
         tx.begin()
 
-        try {
-            val zone = em.find(Zone::class.java, 1)
+        em.find(Zone::class.java, 1L)
 
-            println("ZONE :: $zone")
+        tx.commit()
+        em.close()
+    }
 
-            tx.commit()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            tx.rollback()
-        } finally {
-            em.close()
-        }
+    @Test
+    @DisplayName("엔티티매니저 동일성 테스트")
+    fun testEquality() {
+        val em = emf.createEntityManager()
+        val tx = em.transaction
+
+        tx.begin()
+
+        val zone = Zone(
+            name = "쏘카존_${(1000..2000).random()}",
+            address = "서울시 성동구",
+            openTime = LocalTime.of(9, 0, 0),
+            closeTime = LocalTime.of(22, 0, 0)
+        )
+
+        em.persist(zone)
+
+        val findZone = em.find(Zone::class.java, zone.id)
+        assertThat(zone).isEqualTo(findZone)
+
+        tx.commit()
+        em.close()
+    }
+
+    @Test
+    @DisplayName("JPA 업데이트 테스트")
+    fun testUpdate() {
+        val em = emf.createEntityManager()
+        val tx = em.transaction
+
+        tx.begin()
+
+        val zone = Zone(
+            name = "쏘카존_${(1000..2000).random()}",
+            address = "서울시 성동구",
+            openTime = LocalTime.of(9, 0, 0),
+            closeTime = LocalTime.of(22, 0, 0)
+        )
+
+        em.persist(zone)
+
+        tx.commit()
+        // 엔티티매니저 비우기
+        em.clear()
+
+        // ---------------------------------------------
+
+        tx.begin()
+
+        val findZone = em.find(Zone::class.java, zone.id)
+        findZone.address = "서울시 구로구"
+
+        tx.commit()
+        em.close()
+    }
+
+    @Test
+    @DisplayName("JPA 삭제 테스트")
+    fun testDelete() {
+        val em = emf.createEntityManager()
+        val tx = em.transaction
+
+        tx.begin()
+
+        val zone = Zone(
+            name = "쏘카존_${(1000..2000).random()}",
+            address = "서울시 성동구",
+            openTime = LocalTime.of(9, 0, 0),
+            closeTime = LocalTime.of(22, 0, 0)
+        )
+
+        em.persist(zone)
+
+        tx.commit()
+        // 엔티티매니저 비우기
+        em.clear()
+
+        // ---------------------------------------------
+
+        tx.begin()
+
+        val findZone = em.find(Zone::class.java, zone.id)
+        em.remove(findZone)
+
+        tx.commit()
+        em.close()
     }
 }
+
+// transaction
+// val em = emf.createEntityManager()
+// val tx = em.transaction
+//
+// try {
+//     tx.begin()
+//     // persist
+//     tx.commit()
+// } catch (e: Exception) {
+//     e.printStackTrace()
+//     tx.rollback()
+// } finally {
+//     em.close()
+// }
