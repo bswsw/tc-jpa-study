@@ -27,23 +27,23 @@ internal class TcJpaStudyApplicationTest(
         em.flushMode = FlushModeType.COMMIT
         val tx = em.transaction
 
-         tx.begin()
+        tx.begin()
 
-         val zone = Zone(
-             name = "쏘카존",
-             address = "서울시 성동구",
-             openTime = LocalTime.of(9, 0, 0),
-             closeTime = LocalTime.of(22, 0, 0)
-         )
+        val zone = Zone(
+            name = "쏘카존",
+            address = "서울시 성동구",
+            openTime = LocalTime.of(9, 0, 0),
+            closeTime = LocalTime.of(22, 0, 0)
+        )
 
-         println("=============================")
-         em.persist(zone)
-         println("=============================")
+        println("=============================")
+        em.persist(zone)
+        println("=============================")
 
-         tx.commit()
-         em.close()
+        tx.commit()
+        em.close()
 
-         assertThat(zone.id).isNotNull()
+        assertThat(zone.id).isNotNull()
     }
 
     @Test
