@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.test.context.TestConstructor
 import java.time.LocalTime
 import javax.persistence.EntityManagerFactory
+import javax.persistence.FlushModeType
 
 @ExtendWith
 @DataJpaTest
@@ -23,47 +24,26 @@ internal class TcJpaStudyApplicationTest(
     @DisplayName("JPA 저장 테스트")
     fun testPersist() {
         val em = emf.createEntityManager()
+        em.flushMode = FlushModeType.COMMIT
         val tx = em.transaction
 
-        try {
-            tx.begin()
+         tx.begin()
 
-            val zone = Zone(
-                name = "쏘카존",
-                address = "서울시 성동구",
-                openTime = LocalTime.of(9, 0, 0),
-                closeTime = LocalTime.of(22, 0, 0)
-            )
+         val zone = Zone(
+             name = "쏘카존",
+             address = "서울시 성동구",
+             openTime = LocalTime.of(9, 0, 0),
+             closeTime = LocalTime.of(22, 0, 0)
+         )
 
-            println("=============================")
-            em.persist(zone)
-            println("=============================")
+         println("=============================")
+         em.persist(zone)
+         println("=============================")
 
-            tx.commit()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            tx.rollback()
-        } finally {
-            em.close()
-        }
+         tx.commit()
+         em.close()
 
-        // tx.begin()
-        //
-        // val zone = Zone(
-        //     name = "쏘카존",
-        //     address = "서울시 성동구",
-        //     openTime = LocalTime.of(9, 0, 0),
-        //     closeTime = LocalTime.of(22, 0, 0)
-        // )
-        //
-        // println("=============================")
-        // em.persist(zone)
-        // println("=============================")
-        //
-        // tx.commit()
-        // em.close()
-        //
-        // assertThat(zone.id).isNotNull()
+         assertThat(zone.id).isNotNull()
     }
 
     @Test
@@ -82,7 +62,7 @@ internal class TcJpaStudyApplicationTest(
 
     @Test
     @DisplayName("엔티티매니저 동일성 테스트")
-    fun testEquality() {
+    fun testIdentity() {
         val em = emf.createEntityManager()
         val tx = em.transaction
 
@@ -95,7 +75,9 @@ internal class TcJpaStudyApplicationTest(
             closeTime = LocalTime.of(22, 0, 0)
         )
 
+        println("===========================")
         em.persist(zone)
+        println("===========================")
 
         val findZone = em.find(Zone::class.java, zone.id)
         assertThat(zone).isEqualTo(findZone)
@@ -119,7 +101,9 @@ internal class TcJpaStudyApplicationTest(
             closeTime = LocalTime.of(22, 0, 0)
         )
 
+        println("===========================")
         em.persist(zone)
+        println("===========================")
 
         tx.commit()
         // 엔티티매니저 비우기
