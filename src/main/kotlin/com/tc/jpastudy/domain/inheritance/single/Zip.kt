@@ -7,5 +7,5 @@ import javax.persistence.Entity
 @DiscriminatorValue("zip")
 class Zip(
     ext: String,
-    rate: Int
+    var rate: Int
 ) : Data(ext)

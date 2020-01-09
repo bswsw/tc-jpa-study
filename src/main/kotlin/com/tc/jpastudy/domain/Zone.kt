@@ -5,6 +5,7 @@ import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
+import javax.persistence.OneToMany
 
 @Entity
 class Zone(
@@ -17,6 +18,9 @@ class Zone(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null
+
+    @OneToMany(mappedBy = "zone")
+    val cars: MutableSet<Car> = mutableSetOf()
 
     override fun toString(): String {
         return "Zone(name='$name', address='$address', openTime=$openTime, closeTime=$closeTime, id=$id)"

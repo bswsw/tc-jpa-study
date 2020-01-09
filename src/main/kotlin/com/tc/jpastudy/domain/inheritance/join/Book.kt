@@ -7,5 +7,5 @@ import javax.persistence.Entity
 @DiscriminatorValue("book")
 class Book(
     name: String,
-    var author: String
+    var author: String // 저자
 ) : Item(name)

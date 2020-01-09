@@ -2,6 +2,7 @@ plugins {
     id("org.springframework.boot") version "2.2.2.RELEASE"
 
     kotlin("jvm") version "1.3.61"
+
     // https://kotlinlang.org/docs/reference/compiler-plugins.html#spring-support
     // kotlin("plugin.allopen") version "1.3.61"
     kotlin("plugin.spring") version "1.3.61"

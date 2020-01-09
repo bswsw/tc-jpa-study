@@ -24,7 +24,6 @@ internal class TcJpaStudyApplicationTest(
     @DisplayName("JPA 저장 테스트")
     fun testPersist() {
         val em = emf.createEntityManager()
-        em.flushMode = FlushModeType.COMMIT
         val tx = em.transaction
 
         tx.begin()
@@ -36,7 +35,15 @@ internal class TcJpaStudyApplicationTest(
             closeTime = LocalTime.of(22, 0, 0)
         )
 
+        // == .equals
+        // === ==
+
         println("=============================")
+        em.persist(zone)
+        em.persist(zone)
+        em.persist(zone)
+        em.persist(zone)
+        em.persist(zone)
         em.persist(zone)
         println("=============================")
 
@@ -106,6 +113,7 @@ internal class TcJpaStudyApplicationTest(
         println("===========================")
 
         tx.commit()
+
         // 엔티티매니저 비우기
         em.clear()
 
