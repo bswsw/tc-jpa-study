@@ -9,6 +9,7 @@ plugins {
     // https://kotlinlang.org/docs/reference/compiler-plugins.html#spring-support
     // kotlin("plugin.noarg") version "1.3.61"
     kotlin("plugin.jpa") version "1.3.61"
+    idea
 }
 
 apply {
