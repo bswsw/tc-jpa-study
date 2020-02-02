@@ -1,0 +1,42 @@
+요구사항
+1. 강의는 강사와 교실을 각각 하나씩 가질 수 있다.
+2. 학생은 강의를 하나만 들을 수 있다.
+
+@startuml
+
+entity teacher {
+  * id: bigint <<generated>>
+  teacher_name: varchar
+  age: int
+  phone: varchar
+  address: varchar
+}
+
+entity classroom {
+  * id: bigint <<generated>>
+  room_name: varchar
+  max_count: int
+}
+
+entity student {
+  * id: bigint <<generated>>
+  student_name: varchar
+  age: int
+  phone: varchar
+  address: varchar
+  lecture_id: bigint <<fk>>
+}
+
+entity lecture {
+  * id: bigint <<generated>>
+  lecture_name: varchar
+  state: varchar [OPENED, CLOSED]
+  room_id: bigint <<fk>>
+  teacher_id: bigint <<fk>>
+}
+
+lecture ||..|{ teacher
+lecture }|..|| classroom
+lecture ||..|{ student
+
+@enduml
