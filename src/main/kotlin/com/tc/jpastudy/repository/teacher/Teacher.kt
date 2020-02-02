@@ -1,13 +1,12 @@
 package com.tc.jpastudy.repository.teacher
 
+import com.tc.jpastudy.repository.common.PersonalInformation
 import com.tc.jpastudy.repository.base.BaseEntity
-import org.springframework.data.jpa.repository.JpaRepository
+import javax.persistence.Embedded
 import javax.persistence.Entity
 
 @Entity
 class Teacher(
-    var name: String,
-    var age: Int
+    @Embedded
+    val personalInfo: PersonalInformation
 ) : BaseEntity<Long>()
-
-interface TeacherRepository : JpaRepository<Teacher, Long>

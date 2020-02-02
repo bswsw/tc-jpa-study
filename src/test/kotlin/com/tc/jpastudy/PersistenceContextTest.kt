@@ -4,7 +4,6 @@ import com.tc.jpastudy.domain.context.Member
 import com.tc.jpastudy.domain.context.Team
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertSame
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -24,29 +23,6 @@ internal class PersistenceContextTest {
 
     @PersistenceContext
     private lateinit var em: EntityManager
-
-    private lateinit var team: Team
-    private lateinit var member: Member
-
-    @BeforeEach
-    fun persistTeamAndMember() {
-//        val randomNum = (100..200L).random()
-//
-//        team = Team(
-//            id = randomNum,
-//            name = "팀_$randomNum"
-//        )
-//
-//        member = Member(
-//            id = randomNum,
-//            team = team,
-//            name = "배모군_$randomNum",
-//            address = "서울_$randomNum"
-//        )
-//
-//        em.persist(team)
-//        em.persist(member)
-    }
 
     @Test
     @DisplayName("1차 캐시 테스트")
@@ -150,32 +126,5 @@ internal class PersistenceContextTest {
         println("==================")
         println("Member에서 Team 참조 : ${findMember.team.name}")
         println("==================")
-    }
-
-    @Test
-    fun testLazyLoading2() {
-        val person1 = Person().apply {
-            id = 222224L
-            name = "사람1"
-        }
-
-        val man = Man().apply {
-            id = 2929292L
-            person = person1
-        }
-
-        em.persist(person1)
-        em.persist(man)
-
-        em.flush()
-        em.clear()
-
-        val findMan = em.find(Man::class.java, man.id)
-
-        println("참조전 : ${findMan.id}")
-
-        println("============")
-        findMan.person!!.name
-        println("============")
     }
 }
