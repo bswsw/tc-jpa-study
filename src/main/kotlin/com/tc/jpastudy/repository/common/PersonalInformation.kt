@@ -3,16 +3,12 @@ package com.tc.jpastudy.repository.common
 import javax.persistence.Embeddable
 
 @Embeddable
-class PersonalInformation private constructor(
+class PersonalInformation(
     name: String,
     age: Int,
     phone: String,
     address: String
 ) {
-
-    companion object {
-        fun empty() = PersonalInformation("", 0, "", "")
-    }
 
     var name: String = name
         protected set
