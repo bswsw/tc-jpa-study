@@ -7,7 +7,7 @@ import javax.persistence.ManyToOne
 import javax.persistence.Table
 
 @Entity
-@Table(name = "MEMBER")
+@Table
 class Member(
     @Id
     var id: Long,
@@ -15,4 +15,9 @@ class Member(
     var team: Team,
     var name: String,
     var address: String
-)
+) {
+
+    override fun toString(): String {
+        return "Member(id=$id, name='$name', address='$address')"
+    }
+}

@@ -10,12 +10,16 @@ entity teacher {
   age: int
   phone: varchar
   address: varchar
+  created_at: datetime <<current_timestamp>>
+  updated_at: datetime <<current_timestamp>>
 }
 
 entity classroom {
   * id: bigint <<generated>>
   room_name: varchar
   max_count: int
+  created_at: datetime <<current_timestamp>>
+  updated_at: datetime <<current_timestamp>>
 }
 
 entity student {
@@ -25,6 +29,8 @@ entity student {
   phone: varchar
   address: varchar
   lecture_id: bigint <<fk>>
+  created_at: datetime <<current_timestamp>>
+  updated_at: datetime <<current_timestamp>>
 }
 
 entity lecture {
@@ -33,6 +39,8 @@ entity lecture {
   state: varchar [OPENED, CLOSED]
   room_id: bigint <<fk>>
   teacher_id: bigint <<fk>>
+  created_at: datetime <<current_timestamp>>
+  updated_at: datetime <<current_timestamp>>
 }
 
 lecture ||..|{ teacher

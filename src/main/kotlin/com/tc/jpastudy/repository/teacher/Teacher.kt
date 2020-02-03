@@ -9,7 +9,10 @@ import javax.persistence.Entity
 
 @Entity
 class Teacher(
+    personalInfo: PersonalInformation
+) : BaseEntity<Long>() {
+
     @Embedded
     @AttributeOverride(name = "name", column = Column(name = "teacher_name"))
-    val personalInfo: PersonalInformation
-) : BaseEntity<Long>()
+    var personalInfo: PersonalInformation = personalInfo
+}
