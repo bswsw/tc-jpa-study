@@ -32,9 +32,9 @@ class JPQLQuiz : ApplicationRunner {
     private lateinit var em: EntityManager
 
     override fun run(args: ApplicationArguments?) {
-        em.createQuery("SELECT d FROM Delivery d").resultList.forEach {
+        em.createQuery("SELECT d FROM Delivery d WHERE d.name = 'ss'", Delivery::class.java).resultList.forEach {
             // 아래 주석을 풀면 에러인 이유는?
-            // it.cloth.name
+            // it.name
         }
     }
 }
