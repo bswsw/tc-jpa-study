@@ -1,0 +1,20 @@
+## 조회
+
+GET localhost:8080/beers?page=1&size=2&sort=name,desc
+
+###
+
+POST localhost:8080/beers
+Content-Type: application/json
+
+{
+  "name": "기네스",
+  "maker" : "아일랜드"
+}
+
+###
+
+GET localhost:8080/beers/1
+
+###
+
