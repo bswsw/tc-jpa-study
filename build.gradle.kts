@@ -3,13 +3,9 @@ plugins {
 
     kotlin("jvm") version "1.3.61"
 
-    // https://kotlinlang.org/docs/reference/compiler-plugins.html#spring-support
-    // kotlin("plugin.allopen") version "1.3.61"
     kotlin("plugin.spring") version "1.3.61"
-    // https://kotlinlang.org/docs/reference/compiler-plugins.html#spring-support
-    // kotlin("plugin.noarg") version "1.3.61"
     kotlin("plugin.jpa") version "1.3.61"
-    idea
+    kotlin("kapt") version "1.3.61"
 }
 
 apply {
@@ -36,6 +32,11 @@ dependencies {
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+    implementation("com.querydsl:querydsl-jpa")
+    kapt("com.querydsl:querydsl-apt:4.2.1:jpa")
+
     runtimeOnly("mysql:mysql-connector-java")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
