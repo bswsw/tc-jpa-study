@@ -35,7 +35,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
     implementation("com.querydsl:querydsl-jpa")
-    kapt("com.querydsl:querydsl-apt:4.2.1:jpa")
+    kapt("com.querydsl:querydsl-apt:4.2.2:jpa")
 
     runtimeOnly("mysql:mysql-connector-java")
 

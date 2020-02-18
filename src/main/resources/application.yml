@@ -1,5 +1,7 @@
 #debug: true
 
+spring.jpa.open-in-view: false
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

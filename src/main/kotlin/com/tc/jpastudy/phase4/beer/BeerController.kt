@@ -47,5 +47,17 @@ class BeerController(private val service: BeerService) {
         return ResponseEntity.ok(service.deleteBeer(id))
     }
 
+    @GetMapping("/all")
+    fun doAll(): ResponseEntity<*> {
+        val ran = (10..20L).random()
+
+        val beer = service.makeBeer(name = "이름_$ran", maker = "메이커_$ran")
+
+        beer.maker = "나이키"
+
+        return ResponseEntity.ok(beer)
+    }
+
+
     data class BeerBody(val name: String, val maker: String)
 }

@@ -6,6 +6,7 @@ import javax.persistence.Entity
 @Entity
 class Snack(
     var name: String,
-    var maker: String,
-    var nutrient: SnackNutrient
+    var maker: String
+    // ,
+    // var nutrient: SnackNutrient // {"carbohydrate": 10, "protein": 20, "fat": 30}
 ) : BaseEntity()
