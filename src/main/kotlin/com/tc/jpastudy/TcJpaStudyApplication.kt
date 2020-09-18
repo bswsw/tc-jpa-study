@@ -11,3 +11,7 @@ class TcJpaStudyApplication
 fun main(args: Array<String>) {
     runApplication<TcJpaStudyApplication>(*args)
 }
+
+fun test() {
+    println("test")
+}
